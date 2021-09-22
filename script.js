@@ -1,36 +1,44 @@
-var jump = false;
-var gravity = 2;
+class Pillar{
+  
+  constructor (x, y, w, h, vx){
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.vx = vx;
+  }
+  
+  draw() {
+    rect(this.x, this.y, 30, 300)
+    this.x = this.x + this.vx
+  } 
+}
 
-// pillar
-var b1X = 200;
-var b1Y = 400;
-var b1Width = 30;
-var b1Height = 300;
-var xspeed = -5
+// Bird
+var [xpos, ypos, xspeed, yspeed] = [100, 300, 5, 5];
 
-// pillar 2
-var b2X = 200;
-var b2Y = -100;
-var b2Width = 30;
-var b2Height = 300;
-var xspeed = -5
+//pillars
+var pillar1, pillar2;
+
 
 function setup() {
 	createCanvas(300, 600);
-}
 
-var [xpos, ypos, xspeed, yspeed] = [100, 300, 5, 5];
+  pillar1 = new Pillar(300, 400, 30, 300, -2);
+  pillar2 = new Pillar(300, -100, 30, 300, -2);
+}
 
 function draw() {
 	background(225);
-	
-	fill("pink");
-	ellipse(xpos, ypos, 30, 30);
+  color('')
 
  	fill("blue"); 
-  rect(b1X, b1Y, b1Width, b1Height);
-	rect(b2X, b2Y, b2Width, b2Height);
-  //ypos = ypos + 5
+  pillar1.draw();
+  pillar2.draw();
+
+  fill("pink");
+	ellipse(xpos, ypos, 30, 30);
+  
 	if(ypos >= 0 && ypos + 25 <= 600) ypos += yspeed;
 }
 
@@ -52,6 +60,6 @@ function keyReleased() {
 	}
 }
 
-function gravity(){
-  ypos = ypos + (gravity);
-}  
+if (this.x < 100){
+    this.x = 300
+}
