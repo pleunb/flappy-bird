@@ -1,5 +1,4 @@
 class Pillar{
-  
   constructor (x, y, w, h, vx){
     this.x = x;
     this.y = y;
@@ -16,18 +15,17 @@ class Pillar{
 }
 
 // Bird
-var [xpos, ypos, xspeed, yspeed] = [100, 300, 5, 5];
+var [xpos, ypos, yspeed] = [100, 300, 5];
+
 
 //pillars
-var pillar1, pillar2;
 var pillars = [];
-
 
 function setup() {
 	createCanvas(300, 600);
 
-  pillar1 = new Pillar(300, 400, 30, 300, -2);
-  pillar2 = new Pillar(300, -100, 30, 300, -2);
+  pillar1 = new Pillar(300, random(300, 550), 30, 300, -2);
+  pillar2 = new Pillar(300, random(-300, 0), 30, 300, -2);
   pillars.push(pillar1);
   pillars.push(pillar2);
 }
@@ -38,16 +36,17 @@ function draw() {
 
   if(frameCount % 120 == 0){
     console.log(frameCount);
-    let newPillarBot = new Pillar(300, 400, 30, 300, -2);
-    let newPillarTop = new Pillar(300, -100, 30, 300, -2);  
+    let newPillarBot = new Pillar(300, random(300, 550), 30, 300, -2);
+    let newPillarTop = new Pillar(300, random(-300, 0), 30, 300, -2);  
     pillars.push(newPillarBot);
     pillars.push(newPillarTop);
   }
 
-  fill("pink");
+  fill("yellow");
 	ellipse(xpos, ypos, 30, 30);
   
 	if(ypos >= 0 && ypos + 25 <= 600) ypos += yspeed;
+  else ypos = 300;
 
   pillars.forEach(r => r.draw());
 }
