@@ -33,7 +33,7 @@ function draw() {
     let randomHeight = random(height - 150)
 
     pipes.push(new Pipe(800,0, randomHeight));
-    pipes.push(new Pipe(8  00,randomHeight + 150, 1000));
+    pipes.push(new Pipe(800,randomHeight + 150, 1000));
   }
 
   pipes.forEach(p => p.drawPipe());
