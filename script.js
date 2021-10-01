@@ -1,13 +1,13 @@
-class Pipe {
+class Pillar {
   constructor(x, y, h) {
     this.x = x;
     this.y = y;
     this.h = h;
   }
   
-  drawPipe() {
+  drawPillar() {
     fill("green")
-    rect(this.x, this.y, 30, this.h);
+    rect(this.x, this.y, 50, this.h);
     this.x = this.x - 5;
   }
 }
@@ -17,26 +17,24 @@ var [xpos, ypos, yspeed] = [100, 300, 5];
 
 
 //pillars
-var pipes = [];
+var pillars = [];
 
 function setup() {
-	createCanvas(300, 600);
+	createCanvas(800, 600);
 }
 
 function draw() {
   background(225);
 
 
-  if(frameCount % 120 == 0){   
-    console.log("draw pipe!");
-
+  if(frameCount % 60 == 0){   
     let randomHeight = random(height - 150)
 
-    pipes.push(new Pipe(800,0, randomHeight));
-    pipes.push(new Pipe(800,randomHeight + 150, 1000));
+    pillars.push(new Pillar(800,0, randomHeight));
+    pillars.push(new Pillar(800,randomHeight + 150, 1000));
   }
 
-  pipes.forEach(p => p.drawPipe());
+  pillars.forEach(p => p.drawPillar());
 
   fill("yellow");
 	ellipse(xpos, ypos, 30, 30);
