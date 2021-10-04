@@ -12,9 +12,19 @@ class Pillar {
   }
 }
 
-// Bird
-var [xpos, ypos, yspeed] = [100, 300, 5];
+class Bird{
+  constructor(xpos, ypos, yspeed){
+    this.xpos = xpos;
+    this.ypos = ypos;
+    this.yspeed = yspeed;
+  }
 
+  drawBird(){
+    fill("yellow");
+    ellipse(100, 300, -5);
+  }
+}
+var [xpos, ypos, yspeed] = [100, 300, 5];
 
 //pillars
 var pillars = [];
@@ -26,6 +36,7 @@ function setup() {
 function draw() {
   background(225);
 
+  drawBird;
 
   if(frameCount % 60 == 0){   
     let randomHeight = random(height - 150)
@@ -36,9 +47,9 @@ function draw() {
 
   pillars.forEach(p => p.drawPillar());
 
+  
   fill("yellow");
 	ellipse(xpos, ypos, 30, 30);
-  
 	if(ypos >= 0 && ypos + 25 <= 600) ypos += yspeed;
   else ypos = 300;
 }
