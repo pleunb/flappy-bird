@@ -4,7 +4,10 @@ var y = 200;
 var vy = -1.0;
 var bird;
 
-
+function preload() {
+  bg = loadImage('Images/blabla.png');
+  brd = loadImage('Images/download.png');
+}
 
 class Pillar {
   constructor(x, y, h) {
@@ -28,14 +31,14 @@ class Bird{
   }
 
   draw(){
-    ellipse(150, this.y, 30, 30);
+    image(brd, 150, this.y, 55, 45);
   }
 
   move(){   
     this.vy += this.gravity;
     this.y += this.vy;
     // dit hieronder doet raar met de foto als bird
-    this.y = constrain(this.y, 10, 580);
+    this.y = constrain(this.y, 0, 550);
   } 
 }
 
@@ -47,7 +50,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(bg);
   bird.draw();
   bird.move();
 
@@ -66,9 +69,4 @@ function keyPressed(){
   if(keyCode == 32){
     bird.vy = -7; 
   }
-}
-
-
-if (this.x < 100){
-    this.x = 300
 }
