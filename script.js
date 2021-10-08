@@ -7,6 +7,11 @@ var bird;
 function preload() {
   bg = loadImage('Images/blabla.png');
   brd = loadImage('Images/download.png');
+  die = loadSound('Sounds/die.mp3');
+  hit = loadSound('Sounds/hit.mp3');
+  point = loadSound('Sounds/point.mp3');
+  swoosh = loadSound('Sounds/swoosh.mp3');
+  wing = loadSound('Sounds/wing.mp3');
 }
 
 class Pillar {
@@ -31,7 +36,7 @@ class Bird{
   }
 
   draw(){
-    image(brd, 150, this.y, 55, 45);
+    image(brd, 150, this.y, 65, 45);
   }
 
   move(){   
@@ -62,11 +67,16 @@ function draw() {
   }
 
   pillars.forEach(p => p.drawPillar());
+
+  if(pillars.length > 6){
+      pillars.splice(0, 2);
+  }  
 }
 
 
 function keyPressed(){
   if(keyCode == 32){
-    bird.vy = -7; 
+    bird.vy = -7;
+    wing.play();
   }
 }
