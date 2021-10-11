@@ -18,6 +18,8 @@ function preload() {
   point = loadSound('Sounds/point.mp3');
   swoosh = loadSound('Sounds/swoosh.mp3');
   wing = loadSound('Sounds/wing.mp3');
+  ping = loadSound('Sounds/correct.mp3');
+  mbg = loadSound('Sounds/menu_background.wav');
   //myFont = loadFont('Fonts/FlappyBirdy.ttf');
 }
 
@@ -79,6 +81,8 @@ function setup() {
 function draw() {
   if (gameState == 0){  //START MENU
     background(bg);
+    mbg.play();
+
     image(lgo, 25, 50, 750, 200);
     image(brd,150, 250, 500, 275);
 
@@ -90,6 +94,7 @@ function draw() {
 
   else if (gameState == 1){ //GAME
     background(bg);
+    mbg.stop();
 
     if (score <= 0){
       fill("black");
@@ -98,6 +103,7 @@ function draw() {
     if (score > 0){
       fill("black");
       text('score: ' + score, 25, 25);
+      ping.play();
     }
     
     bird.draw();
