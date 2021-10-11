@@ -5,6 +5,7 @@ var y = 200;
 var vy = -1.0;
 var bird;
 var gameState = 0;
+var score = -2
 
 function preload() {
   bg = loadImage('Images/blabla.png');
@@ -88,10 +89,21 @@ function draw() {
 
   else if (gameState == 1){ //GAME
     background(bg);
+
+    if (score <= 0){
+      fill("black");
+      text('score: 0', 25, 25);
+    }
+    if (score > 0){
+      fill("black");
+      text('score: ' + score, 25, 25);
+    }
+    
     bird.draw();
     bird.move();
 
     if (frameCount % 60 == 0) {
+      score = score + 1
       let randomHeight = random(height - 200)
 
       pillars.push(new Pillar(800, 0, randomHeight));
@@ -118,7 +130,7 @@ function gameOver(){
   rect(100, 250, 600, 250, 20);
 
   fill("black");
-  text('Press "space" to go back to the menu', 190, 590);
+  text('Press "space" to go play again', 190, 590);
   textSize(25);
 
   fill("black");
@@ -126,11 +138,11 @@ function gameOver(){
   textSize(50);
 
   fill("black");
-  text('Score:', 200, 380);
+  text('Score: '+ score, 200, 380);
   textSize(50);
 
   fill("black");
-  text('Highscore:', 200, 440);
+  text('Highscore: ', 200, 440);
   textSize(25);
 }
 
@@ -155,4 +167,5 @@ function reset(){
   bird.y = 200;
   bird.vy = 0;
   gameState = 0;
+  score = -2;
 }
