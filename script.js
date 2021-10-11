@@ -1,4 +1,5 @@
 let pillars = [];
+//let myFont;
 var gravity = 0.35;
 var y = 200;
 var vy = -1.0;
@@ -15,6 +16,7 @@ function preload() {
   point = loadSound('Sounds/point.mp3');
   swoosh = loadSound('Sounds/swoosh.mp3');
   wing = loadSound('Sounds/wing.mp3');
+  //myFont = loadFont('Fonts/FlappyBirdy.ttf');
 }
 
 class Pillar {
@@ -36,6 +38,8 @@ class Pillar {
       if (bird.y + bird.h > this.y && bird.y < this.y + this.h) {
         this.c = "red";
         gameState = 2;
+        hit.play();
+        die.play();
       }
     }
     else {
@@ -77,7 +81,7 @@ function draw() {
     image(brd,150, 250, 500, 275);
 
     fill("black");
-    textFont("times new roman");
+    //textFont('myFont');
     text('Press "space" to start', 275, 590);
     textSize(25);
   }
@@ -108,10 +112,26 @@ function draw() {
 
 function gameOver(){
   background(bg);
-  image(go, 25, 50, 750, 200);
+  image(go, 25, 25, 750, 200);
+
+  fill(255, 255, 255, 200);
+  rect(100, 250, 600, 250, 20);
 
   fill("black");
-  text("Game over", 25, 45);
+  text('Press "space" to go back to the menu', 190, 590);
+  textSize(25);
+
+  fill("black");
+  text('HIER MOET SCORE EN HIGHSCORE KOMEN', 130, 300);
+  textSize(50);
+
+  fill("black");
+  text('Score:', 200, 380);
+  textSize(50);
+
+  fill("black");
+  text('Highscore:', 200, 440);
+  textSize(25);
 }
 
 function keyPressed() {
