@@ -6,6 +6,7 @@ var vy = -1.0;
 var bird;
 var gameState = 0;
 var score = -2
+var highscore = 0;
 
 function preload() {
   bg = loadImage('Images/blabla.png');
@@ -123,6 +124,11 @@ function draw() {
 }
 
 function gameOver(){
+
+  if (score > highscore){
+    highscore = score;
+  }
+
   background(bg);
   image(go, 25, 25, 750, 200);
 
@@ -130,7 +136,7 @@ function gameOver(){
   rect(100, 250, 600, 250, 20);
 
   fill("black");
-  text('Press "space" to go play again', 190, 590);
+  text('Press "space" to play again', 190, 590);
   textSize(25);
 
   fill("black");
@@ -142,7 +148,7 @@ function gameOver(){
   textSize(50);
 
   fill("black");
-  text('Highscore: ', 200, 440);
+  text('Highscore: ' + highscore, 200, 440);
   textSize(25);
 }
 
