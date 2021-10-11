@@ -125,6 +125,14 @@ function keyPressed() {
     }
     if (gameState == 2) {
       gameState = 0;
+      reset();
     }
   }
+}
+
+function reset(){
+  pillars = [];
+  bird.y = 200;
+  bird.vy = 0;
+  gameState = 0;
 }
