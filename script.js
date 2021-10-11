@@ -1,4 +1,5 @@
 let pillars = [];
+//let mbg;
 //let myFont;
 var gravity = 0.35;
 var y = 200;
@@ -20,7 +21,7 @@ function preload() {
   wing = loadSound('Sounds/wing.mp3');
   ping = loadSound('Sounds/correct.mp3');
   mbg = loadSound('Sounds/menu_background.wav');
-  //myFont = loadFont('Fonts/FlappyBirdy.ttf');
+  myFont = loadFont('Fonts/font1.ttf');
 }
 
 class Pillar {
@@ -69,7 +70,7 @@ class Bird {
   move() {
     this.vy += this.gravity;
     this.y += this.vy;
-    this.y = constrain(this.y, 0, 550);
+    this.y = constrain(this.y, 0, 555);
   }
 }
 
@@ -81,14 +82,16 @@ function setup() {
 function draw() {
   if (gameState == 0){  //START MENU
     background(bg);
-    mbg.play();
+    //mbg.loop();
 
     image(lgo, 25, 50, 750, 200);
     image(brd,150, 250, 500, 275);
 
     fill("black");
-    //textFont('myFont');
-    text('Press "space" to start', 275, 590);
+    stroke(255, 255, 255);
+    strokeWeight(5);
+    text('Press "space" to start', 140, 580);
+    textFont(myFont);
     textSize(25);
   }
 
@@ -98,12 +101,16 @@ function draw() {
 
     if (score <= 0){
       fill("black");
-      text('score: 0', 25, 25);
+      stroke(255, 255, 255);
+      strokeWeight(5);
+      text('Score: 0', 25, 50);
     }
     if (score > 0){
       fill("black");
-      text('score: ' + score, 25, 25);
-      ping.play();
+      stroke(255, 255, 255);
+      strokeWeight(5);
+      text('score: ' + score, 25, 50);
+      //ping.play(); WERKT NOG NIET HELEMAAL
     }
     
     bird.draw();
@@ -142,20 +149,22 @@ function gameOver(){
   rect(100, 250, 600, 250, 20);
 
   fill("black");
-  text('Press "space" to play again', 190, 590);
+  stroke(255, 255, 255);
+  strokeWeight(5);
+  text('Score: '+ score, 120, 350);
+  textSize(47);
+
+  fill("black");
+  stroke(255, 255, 255);
+  strokeWeight(5);
+  text('Highscore: ' + highscore, 120, 440);
   textSize(25);
 
   fill("black");
-  text('HIER MOET SCORE EN HIGHSCORE KOMEN', 130, 300);
-  textSize(50);
-
-  fill("black");
-  text('Score: '+ score, 200, 380);
-  textSize(50);
-
-  fill("black");
-  text('Highscore: ' + highscore, 200, 440);
-  textSize(25);
+  stroke(255, 255, 255);
+  strokeWeight(5);
+  text('Press "space" to play again', 70, 580);
+  textSize(47);
 }
 
 function keyPressed() {
