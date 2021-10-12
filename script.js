@@ -21,6 +21,7 @@ function preload() {
   wing = loadSound('Sounds/wing.mp3');
   ping = loadSound('Sounds/correct.mp3');
   mbg = loadSound('Sounds/menu_background.wav');
+  gbg = loadSound('Sounds/game_sound.mp3');
   myFont = loadFont('Fonts/font1.ttf');
 }
 
@@ -43,6 +44,7 @@ class Pillar {
       if (bird.y + bird.h > this.y && bird.y < this.y + this.h) {
         this.c = "red";
         gameState = 2;
+        mbg.loop();
         hit.play();
         die.play();
       }
@@ -77,12 +79,12 @@ class Bird {
 function setup() {
   createCanvas(800, 600);
   bird = new Bird(-0.5, 250, 0.25);
+  //mbg.loop();
 }
 
 function draw() {
   if (gameState == 0){  //START MENU
     background(bg);
-    //mbg.loop();
 
     image(lgo, 25, 50, 750, 200);
     image(brd,150, 250, 500, 275);
@@ -98,7 +100,23 @@ function draw() {
   else if (gameState == 1){ //GAME
     background(bg);
     mbg.stop();
+    
+    bird.draw();
+    bird.move();
 
+    if (frameCount % 70 == 0) {
+      score = score + 1;
+      let randomHeight = random(height - 200);
+
+      pillars.push(new Pillar(800, 0, randomHeight));
+      pillars.push(new Pillar(800, randomHeight + 160, 1000));
+    }
+
+    pillars.forEach(p => p.drawPillar());
+
+    if (pillars.length > 6) {
+      pillars.splice(0, 2);
+    }
     if (score <= 0){
       fill("black");
       stroke(255, 255, 255);
@@ -110,34 +128,17 @@ function draw() {
       stroke(255, 255, 255);
       strokeWeight(5);
       text('score: ' + score, 25, 50);
-      //ping.play(); WERKT NOG NIET HELEMAAL
-    }
-    
-    bird.draw();
-    bird.move();
-
-    if (frameCount % 60 == 0) {
-      score = score + 1
-      let randomHeight = random(height - 200)
-
-      pillars.push(new Pillar(800, 0, randomHeight));
-      pillars.push(new Pillar(800, randomHeight + 150, 1000));
-    }
-
-    pillars.forEach(p => p.drawPillar());
-
-    if (pillars.length > 6) {
-      pillars.splice(0, 2);
+      //ping.play(); //WERKT NOG NIET HELEMAAL
     }
   }
 
   else if (gameState == 2){ // GAME OVER
     gameOver();
+    gbg.stop();
   }
 }
 
 function gameOver(){
-
   if (score > highscore){
     highscore = score;
   }
@@ -152,7 +153,7 @@ function gameOver(){
   stroke(255, 255, 255);
   strokeWeight(5);
   text('Score: '+ score, 120, 350);
-  textSize(47);
+  textSize(43);
 
   fill("black");
   stroke(255, 255, 255);
@@ -164,7 +165,7 @@ function gameOver(){
   stroke(255, 255, 255);
   strokeWeight(5);
   text('Press "space" to play again', 70, 580);
-  textSize(47);
+  textSize(43);
 }
 
 function keyPressed() {
@@ -175,9 +176,11 @@ function keyPressed() {
     }
     if (gameState == 0) {
       gameState = 1;
+      gbg.loop();
     }
     if (gameState == 2) {
       gameState = 0;
+      mbg.stop();
       reset();
     }
   }
@@ -189,4 +192,6 @@ function reset(){
   bird.vy = 0;
   gameState = 0;
   score = -2;
+  mbg.loop();
+
 }
