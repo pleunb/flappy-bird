@@ -1,6 +1,4 @@
 let pillars = [];
-//let mbg;
-//let myFont;
 var gravity = 0.35;
 var y = 200;
 var vy = -1.0;
@@ -115,6 +113,9 @@ function draw() {
 
     if (frameCount % 70 == 0) {
       score = score + 1;
+      if(score > 0){
+        point.play()
+      }
       let randomHeight = random(height - 200);
 
       pillars.push(new Pillar(800, 0, randomHeight));
