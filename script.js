@@ -2,7 +2,6 @@ let pillars = [];
 var gravity = 0.35;
 var y = 200;
 var vy = -1.0;
-var vx = 70;
 var bird;
 var gameState = 0;
 var score = -2
@@ -44,15 +43,11 @@ class Pillar {
 
     if (bird.x + bird.w > this.x && bird.x < this.x + this.w) {
       if (bird.y + bird.h > this.y && bird.y < this.y + this.h) {
-        this.c = "red";
         gameState = 2;
         mbg.loop();
         hit.play();
         die.play();
       }
-    }
-    else {
-      this.c = "green";
     }
   }
 }
@@ -80,8 +75,7 @@ class Bird {
 
 function setup() {
   createCanvas(800, 600);
-  bird = new Bird(-0.5, 250, 0.25);
-  //mbg.loop();
+  bird = new Bird(-0.5, 300, 0.25);
 }
 
 function draw() {
@@ -102,7 +96,6 @@ function draw() {
   else if (gameState == 1) { //GAME
     background(bg);
     mbg.stop();
-
     bird.draw();
     bird.move();
 
@@ -141,7 +134,6 @@ function draw() {
       stroke(255, 255, 255);
       strokeWeight(5);
       text('Score: ' + score, 25, 50);
-      //ping.play(); //WERKT NOG NIET HELEMAAL
     }
   }
 
@@ -216,5 +208,4 @@ function reset() {
   gameState = 0;
   score = -2;
   mbg.loop();
-
 }
