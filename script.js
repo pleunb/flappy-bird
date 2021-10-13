@@ -2,6 +2,7 @@ let pillars = [];
 var gravity = 0.35;
 var y = 200;
 var vy = -1.0;
+var vx = 70;
 var bird;
 var gameState = 0;
 var score = -2
@@ -13,6 +14,7 @@ function preload() {
   lgo = loadImage('Images/logo.png');
   go = loadImage('Images/go1.png');
   pip = loadImage('Images/pipe.png');
+  pip2 = loadImage('Images/pipe2.png');
   die = loadSound('Sounds/die.mp3');
   hit = loadSound('Sounds/hit.mp3');
   point = loadSound('Sounds/point.mp3');
@@ -25,18 +27,19 @@ function preload() {
 }
 
 class Pillar {
-  constructor(x, y, h) {
+  constructor(x, y, h, img) {
     this.x = x;
     this.y = y;
     this.h = h;
     this.w = 50;
     this.c = "green";
+    this.img = img;
   }
 
   drawPillar() {
     fill(this.c);
     noStroke();
-    rect(this.x, this.y, this.w, this.h);
+    image(this.img, this.x, this.y, this.w, this.h);
     this.x -= 5;
 
     if (bird.x + bird.w > this.x && bird.x < this.x + this.w) {
@@ -113,13 +116,13 @@ function draw() {
 
     if (frameCount % 70 == 0) {
       score = score + 1;
-      if(score > 0){
+      if (score > 0) {
         point.play()
       }
       let randomHeight = random(height - 200);
 
-      pillars.push(new Pillar(800, 0, randomHeight));
-      pillars.push(new Pillar(800, randomHeight + 160, 1000));
+      pillars.push(new Pillar(800, 0, randomHeight, pip2));
+      pillars.push(new Pillar(800, randomHeight + 160, height-randomHeight-160, pip));
     }
 
     pillars.forEach(p => p.drawPillar());
