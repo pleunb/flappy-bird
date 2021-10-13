@@ -14,6 +14,7 @@ function preload() {
   brd = loadImage('Images/download.png');
   lgo = loadImage('Images/logo.png');
   go = loadImage('Images/go1.png');
+  pip = loadImage('Images/pipe.png');
   die = loadSound('Sounds/die.mp3');
   hit = loadSound('Sounds/hit.mp3');
   point = loadSound('Sounds/point.mp3');
@@ -83,11 +84,11 @@ function setup() {
 }
 
 function draw() {
-  if (gameState == 0){  //START MENU
+  if (gameState == 0) {  //START MENU
     background(bg);
 
     image(lgo, 25, 50, 750, 200);
-    image(brd,150, 250, 500, 275);
+    image(brd, 150, 250, 500, 275);
 
     fill("black");
     stroke(255, 255, 255);
@@ -97,12 +98,20 @@ function draw() {
     textSize(25);
   }
 
-  else if (gameState == 1){ //GAME
+  else if (gameState == 1) { //GAME
     background(bg);
     mbg.stop();
-    
+
     bird.draw();
     bird.move();
+
+    if (bird.y > 554 || bird.y <= 0) {
+      this.c = "red";
+      gameState = 2;
+      mbg.loop();
+      hit.play();
+      die.play();
+    }
 
     if (frameCount % 70 == 0) {
       score = score + 1;
@@ -117,29 +126,29 @@ function draw() {
     if (pillars.length > 6) {
       pillars.splice(0, 2);
     }
-    if (score <= 0){
+    if (score <= 0) {
       fill("black");
       stroke(255, 255, 255);
       strokeWeight(5);
       text('Score: 0', 25, 50);
     }
-    if (score > 0){
+    if (score > 0) {
       fill("black");
       stroke(255, 255, 255);
       strokeWeight(5);
-      text('score: ' + score, 25, 50);
+      text('Score: ' + score, 25, 50);
       //ping.play(); //WERKT NOG NIET HELEMAAL
     }
   }
 
-  else if (gameState == 2){ // GAME OVER
+  else if (gameState == 2) { // GAME OVER
     gameOver();
     gbg.stop();
   }
 }
 
-function gameOver(){
-  if (score > highscore){
+function gameOver() {
+  if (score > highscore) {
     highscore = score;
   }
 
@@ -149,11 +158,21 @@ function gameOver(){
   fill(255, 255, 255, 200);
   rect(100, 250, 600, 250, 20);
 
-  fill("black");
-  stroke(255, 255, 255);
-  strokeWeight(5);
-  text('Score: '+ score, 120, 350);
-  textSize(43);
+  if (score <= 0) {
+    fill("black");
+    stroke(255, 255, 255);
+    strokeWeight(5);
+    text('Score: 0', 120, 350);
+    textSize(43);
+  }
+
+  if (score > 0) {
+    fill("black");
+    stroke(255, 255, 255);
+    strokeWeight(5);
+    text('Score: ' + score, 120, 350);
+    textSize(43);
+  }
 
   fill("black");
   stroke(255, 255, 255);
@@ -186,7 +205,7 @@ function keyPressed() {
   }
 }
 
-function reset(){
+function reset() {
   pillars = [];
   bird.y = 200;
   bird.vy = 0;
